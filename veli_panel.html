@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <div class="card card-custom shadow-sm mb-4">
+            <div class="card-body text-center p-4">
+                <h3 class="card-title text-primary fw-bold">Veli Bilgi Sorgulama Paneli</h3>
+                <p class="text-muted">Çocuğunuzun ders durumuna, deneme takip verilerine ve öğretmen yorumlarına ulaşmak için öğrencinin adını giriniz.</p>
+                
+                <form method="POST" class="row g-2 justify-content-center mt-3">
+                    <div class="col-auto">
+                        <input type="text" name="ogrenci_adi" class="form-control border-primary" placeholder="Öğrenci Adı Soyadı" required style="width: 320px;">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-blue fw-bold">Çocuğumun Bilgilerini Getir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if aranan_isim %}
+            <h4 class="mb-3 text-primary fw-bold">"{{ aranan_isim }}" İçin Bulunan Raporlar:</h4>
+            {% if raporlar %}
+                {% for d in raporlar %}
+                <div class="card shadow-sm mb-3" style="border-left: 5px solid #0d6efd;">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary fw-bold">{{ d.ogrenci_adi }} <span class="badge bg-info text-dark ms-2">{{ d.sinif_duzeyi }} / {{ d.bolum }}</span></h5>
+                        <hr>
+                        <p class="mb-1"><strong>Ders:</strong> {{ d.ders_ismi }}</p>
+                        <p class="mb-1"><strong>İşlenen Konular:</strong> {{ d.konular }}</p>
+                        <p class="mb-1`"><strong>Deneme Takip:</strong> {{ d.deneme_takip }}</p>
+                        <p class="mb-1"><strong>Okuduğu Kitap:</strong> {{ d.okudugu_kitap }}</p>
+                        <div class="p-3 mt-3 rounded" style="background-color: #e7f1ff; border-left: 4px solid #0d6efd;">
+                            <strong class="text-primary">Öğretmen Yorumu:</strong>
+                            <p class="mb-0 mt-1 text-dark">{{ d.hoca_yorumu }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-warning shadow-sm">Aradığınız isimle eşleşen öğrenci raporu bulunamadı. Lütfen öğrenci ismini doğru girdiğinizden emin olun.</div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

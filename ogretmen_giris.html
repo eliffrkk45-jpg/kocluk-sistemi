@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card card-custom shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="card-title text-center text-primary mb-4 fw-bold">Öğretmen Girişi</h3>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label text-secondary fw-semibold">Kullanıcı Adı</label>
+                        <input type="text" name="username" class="form-control" required placeholder="fatihhoca">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-secondary fw-semibold">Şifre</label>
+                        <input type="password" name="password" class="form-control" required placeholder="fatih45">
+                    </div>
+                    <button type="submit" class="btn btn-blue w-100 py-2 fw-bold">Giriş Yap</button>
+                </form>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{ url_for('veli_giris') }}" class="text-decoration-none text-primary fw-semibold">Veli Girişine Git &rarr;</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

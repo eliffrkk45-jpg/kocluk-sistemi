@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-custom shadow-sm mb-4">
+            <div class="card-header bg-primary text-white fw-bold py-3">
+                ➕ Yeni Öğrenci Dosyası / Raporu Ekle
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-2">
+                        <label class="form-label small fw-semibold">Öğrenci Adı Soyadı</label>
+                        <input type="text" name="ogrenci_adi" class="form-control form-control-sm" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small fw-semibold">Sınıf Düzeyi</label>
+                        <select name="sinif_duzeyi" class="form-select form-select-sm" required>
+                            <option value="5. Sınıf">5. Sınıf</option>
+                            <option value="6. Sınıf">6. Sınıf</option>
+                            <option value="7. Sınıf">7. Sınıf</option>
+                            <option value="8. Sınıf">8. Sınıf</option>
+                            <option value="9. Sınıf">9. Sınıf</option>
+                            <option value="10. Sınıf">10. Sınıf</option>
+                            <option value="11. Sınıf">11. Sınıf</option>
+                            <option value="12. Sınıf">12. Sınıf</option>
+                            <option value="Mezun">Mezun</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small fw-semibold">Bölüm (TYT / AYT)</label>
+                        <select name="bolum" class="form-select form-select-sm" required>
+                            <option value="TYT">TYT</option>
+                            <option value="AYT">AYT</option>
+                            <option value="TYT-AYT">TYT - AYT</option>
+                            <option value="Diğer">Diğer / Ortaokul</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small fw-semibold">Ders İsmi</label>
+                        <input type="text" name="ders_ismi" class="form-control form-control-sm" placeholder="Örn: Matematik" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small fw-semibold">Konular</label>
+                        <textarea name="konular" class="form-control form-control-sm" rows="2" placeholder="İşlenen konular..." required></textarea>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small fw-semibold">Deneme Takip Bilgileri</label>
+                        <textarea name="deneme_takip" class="form-control form-control-sm" rows="2" placeholder="Netler ve analizler..." required></textarea>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small fw-semibold">Okuduğu Kitap</label>
+                        <input type="text" name="okudugu_kitap" class="form-control form-control-sm" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Hocanın Yorumu / Raporu</label>
+                        <textarea name="hoca_yorumu" class="form-control form-control-sm" rows="3" placeholder="Öğrenci hakkındaki değerlendirme..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-blue w-100 fw-bold">Kaydet ve Dosya Aç</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <h3 class="mb-3 text-primary fw-bold">Kayıtlı Öğrenci Dosyaları ve Raporlar</h3>
+        <div class="list-group">
+            {% for d in ogrenciler %}
+            <div class="card mb-3 shadow-sm report-card" style="border-left: 5px solid #0d6efd;">
+                <div class="card-body">
+                    <div class="d-flex w-100 justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0 text-primary fw-bold">{{ d.ogrenci_adi }} <span class="badge bg-primary ms-2">{{ d.sinif_duzeyi }} - {{ d.bolum }}</span></h5>
+                        <button onclick="window.print()" class="btn btn-sm btn-outline-primary print-btn">📄 Raporun PDF'ini Oluştur</button>
+                    </div>
+                    <hr class="my-2">
+                    <p class="mb-1"><strong>Ders:</strong> {{ d.ders_ismi }}</p>
+                    <p class="mb-1"><strong>Konular:</strong> {{ d.konular }}</p>
+                    <p class="mb-1"><strong>Deneme Takip:</strong> {{ d.deneme_takip }}</p>
+                    <p class="mb-1"><strong>Okuduğu Kitap:</strong> {{ d.okudugu_kitap }}</p>
+                    <div class="p-2 mt-2 rounded" style="background-color: #e7f1ff; border: 1px solid #b6d4fe;">
+                        <strong class="text-primary">Hocanın Yorumu:</strong> {{ d.hoca_yorumu }}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <p class="text-muted">Henüz kayıtlı öğrenci dosyası bulunmuyor.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+@media print {
+    body * { visibility: hidden; }
+    .report-card, .report-card * { visibility: visible; }
+    .report-card { position: absolute; left: 0; top: 0; width: 100%; border: 1px solid #ccc !important; }
+    .print-btn { display: none !important; }
+    nav { display: none !important; }
+}
+</style>
+{% endblock %}

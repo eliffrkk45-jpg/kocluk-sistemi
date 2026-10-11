@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card card-custom shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="card-title text-center text-primary mb-4 fw-bold">Veli Girişi</h3>
+                <p class="text-center text-muted small mb-4">Google hesabınızla sisteme giriş yapabilirsiniz.</p>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label text-secondary fw-semibold">Adınız Soyadınız</label>
+                        <input type="text" name="veli_adi" class="form-control" required placeholder="Örn: Ahmet Yılmaz">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-secondary fw-semibold">E-Posta Adresiniz (Google)</label>
+                        <input type="email" name="veli_email" class="form-control" required placeholder="ornek@gmail.com">
+                    </div>
+                    <button type="submit" class="btn btn-blue w-100 py-2 fw-bold">Google Hesabı ile Giriş Yap</button>
+                </form>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{ url_for('ogretmen_giris') }}" class="text-decoration-none text-primary fw-semibold">&larr; Öğretmen Girişine Git</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
